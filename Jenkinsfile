@@ -25,7 +25,7 @@ pipeline {
         stage("Build docker images and push to Nexus") {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'nexus-pass', variable: 'nexus_pass_var')]) {
+                    withCredentials([string(credentialsId: 'nexus_pass', variable: 'nexus_pass_var')]) {
                         sh """
                         docker build -t $DOCKER_HOSTED_EP/javawebapp:\${VERSION} .
                         docker login -u admin -p \$nexus_pass_var \$DOCKER_HOSTED_EP
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes/') {
-                        withCredentials([string(credentialsId: 'nexus-pass', variable: 'nexus_pass_var')]) {
+                        withCredentials([string(credentialsId: 'nexus_pass', variable: 'nexus_pass_var')]) {
                             sh """
                             helmchartversion=\$(helm show chart myapp/ | grep version | awk '{print \$2}')
                             helm package myapp/
