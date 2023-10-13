@@ -51,11 +51,11 @@ pipeline {
                 }
             }
         }
+    }
     post {
 	    always {
 	        mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>Build URL: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "${currentBuild.result} CI: Project name -> ${env.JOB_NAME}", to: "zerqqaouiyassine1@gmail.com";
             slackSend channel: '#jenkins-cicd', message: "Project: ${env.JOB_NAME} \n Build Number: ${env.BUILD_NUMBER} \n Status: *${currentBuild.result}* \n More info at: ${env.BUILD_URL}"
         }
-    }        
-}
+    }   
 }
