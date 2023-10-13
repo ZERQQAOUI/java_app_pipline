@@ -72,6 +72,16 @@ pipeline {
                  }
              }
          }
+        stage("Verify application deployment on k8s-cluster") {
+            steps {
+                script{
+                    dir ("kubernetes/"){  
+                        sh 'kubectl run curl --image=curlimages/curl -i --rm --restart=Never -- curl jwa1-myapp:8080 ' 
+                            }   
+                        }
+                    }
+                }
+
 
     }
     post {
